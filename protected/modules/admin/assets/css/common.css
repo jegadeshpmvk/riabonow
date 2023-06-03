@@ -1,0 +1,161 @@
+*{margin:0px;padding:0px; vertical-align:top;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box; }
+*:focus{outline: none}
+ul, ul li{list-style:none;}
+a,button{cursor:pointer;text-decoration:none;color: inherit;transition:all .4s;}
+a:active{background-color: transparent;}  
+select, map, area, a{border:0px; outline:none;}
+img{border-style:none;}
+h1, h2, h3, h4, h5, h6{font-weight:normal;}
+input[type=text], input[type=password], textarea{text-align:left; background: transparent;}
+input, textarea, select{border:0; outline:none; line-height:normal; border-radius: 0;}
+
+input:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px white inset !important;}
+textarea{resize:none;}
+form{display: block; position: relative;}
+.c{margin:auto;}
+.f-l{float:left !important;}
+.f-r{float:right !important;}
+.p-0{padding:0px !important;}
+.p-t-0{padding-top:0px !important;}
+.p-t-5{padding-top:5px !important;}
+.p-t-10{padding-top:10px !important;}
+.p-t-15{padding-top:15px !important;}
+.p-t-20{padding-top:20px !important;}
+.m-0{margin:0px !important;}
+.m-t-0{margin-top:0px !important;}
+.m-t-5{margin-top:5px !important;}
+.m-t-10{margin-top:10px !important;}
+.m-t-15{margin-top:15px !important;}
+.m-t-20{margin-top:20px !important;}
+.m-t-30{margin-top:30px !important;}
+.aln-l{text-align:left !important;}
+.aln-r{text-align:right !important;}
+.aln-c{text-align:center !important;}
+.clear{clear:both;}
+
+.wid100{width: 100%;}
+.v-aln-wr{position:relative;width:100%;height:100%;display: table;}
+.v-aln{display: inline-block;display: table-cell;vertical-align: middle;}
+.bsz{background: #eee url() no-repeat 50% 100%;overflow: hidden;-webkit-background-size: cover;-moz-background-size: cover;-ms-background-size: cover;-o-background-size: cover;background-size: cover;}
+.bsz img{display: none;position: relative;}
+.bsz, .middle-wrap-abs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+.bsz .bgimage {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.middle-wrap {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: opacity .5s .7s;
+}
+.middle {
+    vertical-align: middle;
+    display: inline-block;
+    white-space: normal;
+}
+.middle-wrap-table {
+    display: table;
+    min-height: 100vh;
+    width: 100%;
+    vertical-align: middle;
+}
+.middle-wrap-table .middle {
+    display: table-cell;
+}
+.middle-wrap:after, .middle-wrap-abs:after {
+    content: "";
+    vertical-align: middle;
+    display: inline-block;
+    width: 1px;
+    height: 100%;
+}
+.content-save-link.loading {
+    position: relative;
+    pointer-events: none;
+    opacity:1;
+    visibility: hidden;
+    z-index: 9999;
+    transition:opacity .4s, visibility .4s; 
+}
+._flex {
+    display:flex;
+}
+._table {
+    display: table;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    position: relative;
+    padding: 40px;
+}
+._table_cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+.inline_flex {
+    display: inline-flex;
+    width:50%;
+}
+._table_cell_width {
+    max-width: 840px;
+    margin: auto;
+    border-radius: 30px;
+    overflow: hidden;
+}
+.p_rea {
+    position: relative;
+    display: block;
+    flex: 1;
+}
+.loading {
+    
+    position:relative;
+}
+.loading:after {
+    content: "";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgb(60 160 98 / 20%) !important;
+}
+.loading:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform:translate(-50%, -50%);
+    margin-top: -11px;
+    height: 16px;
+    width: 16px;
+    border: 2px solid rgb(0, 0, 0);
+    border-right-color: #3CA062;
+    border-radius: 50%;
+    animation: rotateLoading .75s linear infinite;
+    z-index:5;
+}
+@keyframes rotateLoading{
+    0%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(360deg)
+    }
+}

@@ -1,0 +1,113 @@
+/* Custom Dropdown */
+.dropdown-wrapper {
+	margin-top: 10px;
+	position: relative;
+}
+.dropdown-wrapper > select {
+	display: none;
+}
+.dropdown-selected {
+	border: 1px solid #c6c6c6;
+	padding: 10px 38px 10px 15px;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.dropdown-selected::after {
+	font-family: 'FontAwesome';
+	content: "\f0d7";
+	position: absolute;
+	top: 50%;
+	right: 12px;
+	color: #444;
+	font-size: 20px;
+	z-index: 3;
+	margin-top: -10px;
+}
+.dropdown.open .dropdown-selected::after {
+	content: "\f0d8";
+	margin-top: -12px;
+}
+.dropdown-options {
+	position: absolute;
+	left: 0;
+	top: 100%;
+	min-width: 100%;
+	max-height: 300px;
+	overflow: auto;
+	display: none;
+	border-top: 0;
+	background-color: #fff;
+	z-index: 101;
+	border: 1px solid rgb(30, 144, 255);
+	box-shadow: 0 0 6px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
+	margin-top: 0px;
+}
+.dropdown.open .dropdown-options {
+	display: block;
+}
+.dropdown-opt-label {
+	font-weight: bold;
+	display: block;
+	padding: 10px 8px 5px;
+}
+.dropdown-option, .dropdown-create {
+	padding: 7px 40px 7px 15px;
+	/* border-top: 1px solid #e6e6e6; */
+	display: block;
+	position: relative;
+}
+.dropdown-option:hover, .dropdown-create:hover, .dropdown-option.selected {
+	/*background-color: rgba(229, 238, 253, 1);
+	background-color: rgba(66, 133, 244, 0.13);*/
+	background-color: #F3F3F3;
+	color: #4285F4;
+}
+.dropdown-option[data-value=""] {
+	white-space: nowrap;
+}
+.dropdown-option .fa{
+	position: absolute;
+	right: 0px;
+	padding: 10px;
+	top: 50%;
+	margin-top: -22px;
+	font-size: 18px;
+	visibility: hidden;
+}
+.dropdown-option .fa::before {
+	margin-right: 0 !important;
+}
+.dropdown-option:hover .fa {
+	visibility: visible;
+}
+.dropdown-create {
+	color: #C5B371;
+	border-bottom: 1px solid #F7EBC1;
+	line-height: 18px;
+	white-space: nowrap;
+	background: #FFF9E3;
+	font-size: 13px;
+}
+.dropdown-create::before {
+	font-size: 14px;
+	margin-top: 0px;
+	margin-right: 10px !important;
+	vertical-align: middle
+}
+body.has-iframe {
+	overflow: hidden;
+}
+.dropdown-create-option {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background: rgb(10,10,10);
+	background: rgba(10,10,10,.6);
+	z-index: 101;
+	border: 0;
+}

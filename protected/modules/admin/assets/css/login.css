@@ -1,0 +1,186 @@
+.login_page {
+    position:relative;
+    line-height: 1.4em;
+    text-align: center;
+    background-size: cover;
+
+}
+.login_page ._table {
+    position: relative;
+    height: 100vh;
+    background: url(images/bg.png);
+
+}
+.login_page ._flex {
+    background-color: rgb(0 0 0 / 50%);
+    border-radius: 30px;
+}
+.login_page:before {
+    content:"";
+    background-color: rgb(0 0 0 / 40%);
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.logo_a {
+    display: inline-block;
+}
+.login_page input[type="text"].form-control:focus, .login_page input[type="password"].form-control:focus {
+    border-color: #5b9dd9;
+    box-shadow: 0 0 2px rgba( 30, 140, 190, 0.8 );
+}
+.logo {
+    width: 200px;
+    height: auto;
+}
+.login_page_width {
+    width: 320px;
+}
+.login_form {
+    padding: 140px 35px 140px;
+    text-align: left;
+    line-height: 1.5;
+    flex: 1;
+}
+.login_page label.control-label {
+    font-family: 'Poppins';
+    color: #72777c;
+    display: block;
+}
+.login_page input[type=text].form-control, .login_page input[type=password].form-control {
+    font-size: 16px;
+    width: 100%;
+    padding: 11px 15px;
+    color: #fff;
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid #EAEAEA;
+}
+.login_page input[type=text].form-control::placeholder, .login_page input[type=password].form-control::placeholder {
+    color: #fff;
+}
+.login_page .message {
+    border-left: 4px solid #3CA062;
+    padding: 12px;
+    margin-bottom: 25px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    text-align: left;
+}
+.login_page .f-l {
+    float: left;
+}
+.login_page .f-r {
+    float: right;
+}
+.login_page .form-group {
+    margin-top: 20px;
+}
+.login_page .form-group:first-of-type {
+    margin-top:0;
+}
+.login_page .has-checkbox {
+    font-size: 12px;
+    line-height: 19px;
+    color: #fff;
+}
+.login_page .has-checkbox > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.login_page .has-checkbox input[type="checkbox"] + .square {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #fff;
+    margin-right: 4px;
+}
+.login_page .has-checkbox input[type="checkbox"]:checked + .square:before {
+    content: "\f00c";
+    position: relative;
+    font-family:FontAwesome;
+    color: #fff;
+    font-size: 14px;
+    top: -2px;
+}
+.login_page .help-block  {
+    font-size: 12px;
+}
+.login_page .help-block-error {
+    color: #ff5e14;
+    background: transparent;
+    padding: 0;
+    margin: 2px 0 0 0;
+} 
+.lost_back {
+    padding-left:24px;
+    text-align: left;
+}
+.align_r {
+    text-align: right;
+}
+.login_page .has-submit {
+    margin-top: 20px;
+}
+.login_form_text {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+}
+.login_logo {
+    padding: 25px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    border: 1px solid #ededed;
+    border-right: none;
+    transform: translateY(-50%);
+    background-color: #ff5e14;
+}
+.login_page .inline_flex:first-of-type {
+    background-color:transparent;
+    position:relative;
+    z-index: 99999999999999;
+    margin-right: -1px;
+}
+.login_page .inline_flex:nth-child(2) {
+    position:relative;
+    z-index:1;
+    border: 1px solid #ededed;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.need_help {
+    font-size: 14px;
+    margin-top: 20px;
+    font-family: 'Poppins';
+    text-align: center;
+}
+.need_help>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+.need_help_lost {
+    margin-left:5px;
+    color:#3CA062;
+    font-weight:600;
+}
+.need_help_text {    
+    font-family: 'Poppins';
+    color: #7E7E7E;    
+    font-size: 11px;    
+    text-align: center;    
+    margin-top: 6px;    
+    padding-top: 6px;    
+    border-top: 1px solid #D6D6D6;
+}
+#login-form .form-group input[type="checkbox"] {
+    display: none;
+}
+.login-button {
+    width: 100%;
+    box-shadow: none;
+}

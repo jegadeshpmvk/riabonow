@@ -1,0 +1,6 @@
+.highlight{ color: #FF0000; font-weight: bold; }
+.highlight-blue{ color: #0076B5; font-weight: bold; }
+
+.about-layout2 .cta__banner { display: none !important; }
+.about-layout2 .about__img:after { background-color: #648a00 !important; }
+.about-layout2 .about__img:before { background-color: #648a00 !important; }
