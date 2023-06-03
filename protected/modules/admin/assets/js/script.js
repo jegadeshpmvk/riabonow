@@ -498,68 +498,11 @@ var page = {
                                 y: [value.pe_oi, close_pe_oi, value.pe_oi, close_pe_oi]
                             })
                         });
-                        console.log(rDataPe);
-
-                        var options = {
-                            series: [{
-                                data: rData
-                            }],
-                            chart: {
-                                type: 'candlestick',
-                                height: 350
-                            },
-                            title: {
-                                text: 'CandleStick Chart',
-                                align: 'left'
-                            },
-                            xaxis: {
-                                type: 'category',
-                                labels: {
-                                    //   formatter: function(value, timestamp, opts) {
-                                    //     return opts.dateFormatter(new Date(timestamp)).format("HH:mm")
-                                    //   }
-                                }
-                            },
-                            yaxis: {
-                                tooltip: {
-                                    enabled: true
-                                }
-                            }
-                        };
-                        var options_pe = {
-                            series: [{
-                                data: rDataPe
-                            }],
-                            chart: {
-                                type: 'candlestick',
-                                height: 350
-                            },
-                            title: {
-                                text: 'CandleStick Chart',
-                                align: 'left'
-                            },
-                            xaxis: {
-                                type: 'category',
-                                hideOverlappingLabels: false,
-                                labels: {
-                                    //   formatter: function(value, timestamp, opts) {
-                                    //     return opts.dateFormatter(new Date(timestamp)).format("HH:mm")
-                                    //   }
-                                }
-                            },
-                            yaxis: {
-                                tooltip: {
-                                    enabled: true
-                                }
-                            }
-                        };
-                        // page.getCandleStikeChart(options, options_pe, rData, rDataPe);
+                        console.log(rData);
                         page.ceChart.updateSeries([{
-                            name: 'Sales',
                             data: rData
                         }]);
                         page.peChart.updateSeries([{
-                            name: 'Sales',
                             data: rDataPe
                         }])
                     } else {
@@ -583,6 +526,17 @@ var page = {
             dataLabels: {
                 enabled: false
             },
+            tooltip: {
+                custom: function ({ seriesIndex, dataPointIndex, w }) {
+                    const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+                    const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+                    const diff = (h - o);
+                    let text = "Open: " + o + "<br>";
+                    text += "Close: " + h + "<br>";
+                    text += "Difference: " + diff + "<br>";
+                    return text;
+                }
+            },
             series: [],
             title: {
                 text: 'CE Changes',
@@ -591,25 +545,11 @@ var page = {
                 text: 'Loading...'
             }
         };
-        var options_pe = {
-            chart: {
-                type: 'candlestick',
-                height: 350
-            },
-            dataLabels: {
-                enabled: false
-            },
-            series: [],
-            title: {
-                text: 'PE Changes',
-            },
-            noData: {
-                text: 'Loading...'
-            }
-        }
+
         page.ceChart = new ApexCharts(document.querySelector("#chart"), options);
         page.ceChart.render();
-        page.peChart = new ApexCharts(document.querySelector("#chart_pe"), options_pe);
+        options.title.text = 'PE Changes';
+        page.peChart = new ApexCharts(document.querySelector("#chart_pe"), options);
         page.peChart.render();
     }
 };
