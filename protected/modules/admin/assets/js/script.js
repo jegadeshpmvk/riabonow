@@ -2,7 +2,7 @@ $(function () {
     $('body').on('click', 'a[data-scroll]', function (e) {
         e.preventDefault();
         var el = $(this),
-                sel = el.data('scroll');
+            sel = el.data('scroll');
         $('html, body').animate({
             'scrollTop': $(sel).offset().top - $(".header").outerHeight() - 30
         }, 1000);
@@ -13,12 +13,12 @@ $(function () {
     $('body').on('click', 'a', function (e) {
         e.stopPropagation();
     });
-    
+
     $('body').on('click', '.panel_left_button', function (e) {
         e.stopPropagation();
         $('body').toggleClass('panel_left_bar')
     });
-    
+
     $('body').on('click', '.options a.fa-search, .search-bar a.fa-arrow-left', function () {
         $('html').toggleClass('has-search');
     });
@@ -93,7 +93,7 @@ $(function () {
     $('body').on('click', 'a.repeater-up', function (e) {
         e.preventDefault();
         var block = $(this).closest('li'),
-                prev = block.prev('li');
+            prev = block.prev('li');
         if (prev.length) {
             block.insertBefore(prev);
             repeater.order(this);
@@ -103,7 +103,7 @@ $(function () {
     $('body').on('click', 'a.repeater-down', function (e) {
         e.preventDefault();
         var block = $(this).closest('li'),
-                next = block.next('li');
+            next = block.next('li');
         if (next.length) {
             block.insertAfter(next);
             repeater.order(this);
@@ -129,9 +129,9 @@ $(function () {
      *******************************************/
     $('body').on('change', 'select.block-change', function (e) {
         var blockgroup = $(this).data('group'),
-                groupel = $('.' + blockgroup);
+            groupel = $('.' + blockgroup);
         sel = '.' + blockgroup + '.' + this.value,
-                el = $(sel);
+            el = $(sel);
         groupel.fadeOut(0);
         if (this.value !== '')
             el.fadeIn(0);
@@ -164,31 +164,37 @@ $(function () {
 
     page.load();
     page.table();
-    
-    if($('.nifty_data').length) {
+
+    if ($('.nifty_data').length) {
         page.getNiftyExpiryDate();
-        setInterval(function() {
+        setInterval(function () {
             page.getRealDatas();
         }, 60 * 1000);
     }
-    
-    if($('.option_chain').length || $('#chart').length) {
-        setInterval(function() {
+
+    if ($('.option_chain').length) {
+        setInterval(function () {
+            console.log('setInterval');
             page.getOptionChain();
         }, 60 * 1000);
     }
-    
-     $('body').on('change', '#option_expiry_date,#option_options_minute, #option_options_contracts, #from_strike_price, #to_strike_price, #option_current_date', function() {
+
+    $('body').on('change', '#option_expiry_date,#option_options_minute, #option_options_contracts, #from_strike_price, #to_strike_price, #option_current_date', function () {
         page.getOptionChain();
     });
-    
-    $('body').on('change', '#expiry_date, #options_contracts', function() {
+
+    if ($('#chart').length) {
+        page.getCandleStikeChart();
+    }
+
+    $('body').on('change', '#expiry_date, #options_contracts', function () {
         page.getRealDatas();
     });
 });
 
 //Repeater
-var repeater = {order: function (el) {
+var repeater = {
+    order: function (el) {
         var isChild = false;
         if (!$(el).hasClass('repeater')) {
             el = $(el).closest('.repeater');
@@ -204,10 +210,10 @@ var repeater = {order: function (el) {
             flexibleContent.destroySelect2($(this).find('.select2-multi-list'));
             flexibleContent.destroySelect2($(this).find('.select2-single-list'));
             var item = $(this).find('> .repeater-item'),
-                    oldid = item.attr('data-key'),
-                    html = item.html(),
-                    regex,
-                    id = i;
+                oldid = item.attr('data-key'),
+                html = item.html(),
+                regex,
+                id = i;
             var nth = 0;
             html = html.replace(/-\d+-/g, function (match, i, original) {
                 nth++;
@@ -258,16 +264,16 @@ var repeater = {order: function (el) {
     },
     datePickerInit: function (el) {
         var inpDates = $(el).find('.hasDatepicker');
-//        if (inpDates.length) {
-//            $(inpDates).each(function () {
-//                $(this).removeClass('hasDatepicker').datepicker({
-//                    onSelect: function (selectedDate) {
-//                        // custom callback logic here
-//                        $(this).attr('value', selectedDate);
-//                    }
-//                });
-//            });
-//        }
+        //        if (inpDates.length) {
+        //            $(inpDates).each(function () {
+        //                $(this).removeClass('hasDatepicker').datepicker({
+        //                    onSelect: function (selectedDate) {
+        //                        // custom callback logic here
+        //                        $(this).attr('value', selectedDate);
+        //                    }
+        //                });
+        //            });
+        //        }
     },
     destroyEditor: function (el) {
         var txtArea = $(el).find('.repeater-widget-editor');
@@ -329,7 +335,7 @@ var repeater = {order: function (el) {
 };
 //Page functions
 var page = {
-    upload_object: {}, dropdowns: {}, timer: 0,
+    upload_object: {}, dropdowns: {}, timer: 0, ceChart: false, peChart: false,
     saveTimer: 0,
     check: function () {
         if (!Modernizr.history)
@@ -405,8 +411,8 @@ var page = {
     table: function () {
         $('.table.table-striped.table-bordered th').each(function () {
             var text = $(this).find('a').html(),
-                    a = $(this).find('a'),
-                    span = '<span>' + text + '</span>';
+                a = $(this).find('a'),
+                span = '<span>' + text + '</span>';
             a.html('');
             a.append(span);
         })
@@ -415,24 +421,23 @@ var page = {
     urlvars: function (href) {
         var vars = [], hash;
         var hashes = href.slice(href.indexOf('?') + 1).split('&');
-        for (var i = 0; i < hashes.length; i++)
-        {
+        for (var i = 0; i < hashes.length; i++) {
             hash = hashes[i].split('=');
             vars.push(hash[0]);
             vars[hash[0]] = hash[1];
         }
         return vars;
     },
-    getNiftyExpiryDate: function() {
+    getNiftyExpiryDate: function () {
         $.ajax({
             url: '/admin/refresh/get-expiry-date',
             type: 'POST',
             dataType: 'json',
             success: function (data) {
                 var option = '<option value="">Please select</option>';
-                if(data?.expiryDetailsDto?.expiryDates) {
-                    $.each(data?.expiryDetailsDto?.expiryDates, function( index, value ) {
-                        option += '<option value="'+value+'">'+value+'</option>';
+                if (data?.expiryDetailsDto?.expiryDates) {
+                    $.each(data?.expiryDetailsDto?.expiryDates, function (index, value) {
+                        option += '<option value="' + value + '">' + value + '</option>';
                     });
                     $('#expiry_date').html(option);
                 }
@@ -443,133 +448,174 @@ var page = {
             }
         });
     },
-     getRealDatas: function() {
+    getRealDatas: function () {
         var url = $('.nifty_data').attr('data-url');
-         var options = $('#options_contracts').val();
-          var expiry_date = $('#expiry_date').val();
-          if(expiry_date !== '' && options !== '') {
-                $.ajax({
+        var options = $('#options_contracts').val();
+        var expiry_date = $('#expiry_date').val();
+        if (expiry_date !== '' && options !== '') {
+            $.ajax({
                 url: '/admin/refresh/get-nifty',
                 type: 'POST',
                 dataType: 'json',
-                data: {expiry_date: expiry_date, options:options },
+                data: { expiry_date: expiry_date, options: options },
                 success: function (data) {
-                    
+
                 }, error: function () {
                     alert('Error in form');
                 },
                 complete: function () {
                 }
             });
-          }
-      },
-      getOptionChain: function() {
-           var options = $('#option_options_contracts').val(),
-           current_date = $('#option_current_date').val(),
+        }
+    },
+    getOptionChain: function () {
+        var options = $('#option_options_contracts').val(),
+            current_date = $('#option_current_date').val(),
             from_strike_price = $('#from_strike_price').val(),
-           to_strike_price = $('#to_strike_price').val(),
-           option_options_minute = $('#option_options_minute').val(),
-           expiry_date = $('#option_expiry_date').val();
-           if(options !== '' && from_strike_price !== '' && to_strike_price !== '' && expiry_date !== '') {
-              $.ajax({
-                    url: '/admin/option-chain/get-data',
-                    type: 'POST',
-                   dataType: 'json',
-                    data: {expiry_date: expiry_date, options:options, to_strike_price:to_strike_price,from_strike_price:from_strike_price, current_date:current_date, min: option_options_minute },
-                    success: function (data) {
-                        if($('#chart').length) {
-                            var rData = [];
-                            var rDataPe = [];
-                            $.each(data.chart[from_strike_price], function(key, value) {
-                                //console.log(data.chart[from_strike_price][key+1]);
-                                var close_ce_oi = typeof(data.chart[from_strike_price][key+1]) != "undefined" ? data.chart[from_strike_price][key+1].ce_oi : value.ce_oi;
-                                rData.push({
-                                  x: new Date(value.date_format),
-                                  y: [value.ce_oi, close_ce_oi, value.ce_oi, close_ce_oi]
-                                });
-                                
-                                var close_pe_oi = typeof(data.chart[from_strike_price][key+1]) != "undefined" ? data.chart[from_strike_price][key+1].pe_oi : value.pe_oi;
-                                rDataPe.push({
-                                  x: new Date(value.date_format),
-                                  y: [value.pe_oi, close_pe_oi, value.pe_oi, close_pe_oi]
-                                })
-                            }); 
-                            
-                            var options = {
-                                  series: [{
-                                  data: rData
-                                }],
-                                  chart: {
-                                  type: 'candlestick',
-                                  height: 350
-                                },
-                                title: {
-                                  text: 'CandleStick Chart',
-                                  align: 'left'
-                                },
-                                xaxis: {
-                                  type: 'datetime',
-                                    labels: {
+            to_strike_price = $('#to_strike_price').val(),
+            option_options_minute = $('#option_options_minute').val(),
+            expiry_date = $('#option_expiry_date').val();
+        if (options !== '' && from_strike_price !== '' && to_strike_price !== '' && expiry_date !== '') {
+            $.ajax({
+                url: '/admin/option-chain/get-data',
+                type: 'POST',
+                dataType: 'json',
+                data: { expiry_date: expiry_date, options: options, to_strike_price: to_strike_price, from_strike_price: from_strike_price, current_date: current_date, min: option_options_minute },
+                success: function (data) {
+                    if ($('#chart').length) {
+                        var rData = [];
+                        var rDataPe = [];
+                        $.each(data.chart[from_strike_price], function (key, value) {
+                            var close_ce_oi = typeof (data.chart[from_strike_price][key + 1]) != "undefined" ? data.chart[from_strike_price][key + 1].ce_oi : value.ce_oi;
+                            rData.push({
+                                x: value.date_format,
+                                y: [value.ce_oi, close_ce_oi, value.ce_oi, close_ce_oi]
+                            });
+
+                            var close_pe_oi = typeof (data.chart[from_strike_price][key + 1]) != "undefined" ? data.chart[from_strike_price][key + 1].pe_oi : value.pe_oi;
+                            rDataPe.push({
+                                x: value.date_format,
+                                y: [value.pe_oi, close_pe_oi, value.pe_oi, close_pe_oi]
+                            })
+                        });
+                        console.log(rDataPe);
+
+                        var options = {
+                            series: [{
+                                data: rData
+                            }],
+                            chart: {
+                                type: 'candlestick',
+                                height: 350
+                            },
+                            title: {
+                                text: 'CandleStick Chart',
+                                align: 'left'
+                            },
+                            xaxis: {
+                                type: 'category',
+                                labels: {
                                     //   formatter: function(value, timestamp, opts) {
                                     //     return opts.dateFormatter(new Date(timestamp)).format("HH:mm")
                                     //   }
-                                    }
-                                },
-                                yaxis: {
-                                  tooltip: {
-                                    enabled: true
-                                  }
                                 }
-                            };
-                            var options_pe = {
-                                  series: [{
-                                  data: rDataPe
-                                }],
-                                  chart: {
-                                  type: 'candlestick',
-                                  height: 350
-                                },
-                                title: {
-                                  text: 'CandleStick Chart',
-                                  align: 'left'
-                                },
-                                xaxis: {
-                                  type: 'datetime',
-                                   labels: {
+                            },
+                            yaxis: {
+                                tooltip: {
+                                    enabled: true
+                                }
+                            }
+                        };
+                        var options_pe = {
+                            series: [{
+                                data: rDataPe
+                            }],
+                            chart: {
+                                type: 'candlestick',
+                                height: 350
+                            },
+                            title: {
+                                text: 'CandleStick Chart',
+                                align: 'left'
+                            },
+                            xaxis: {
+                                type: 'category',
+                                hideOverlappingLabels: false,
+                                labels: {
                                     //   formatter: function(value, timestamp, opts) {
                                     //     return opts.dateFormatter(new Date(timestamp)).format("HH:mm")
                                     //   }
-                                    }
-                                },
-                                yaxis: {
-                                  tooltip: {
-                                    enabled: true
-                                  }
                                 }
-                            };
-                            page.getCandleStikeChart(options, options_pe);
-                        } else {
-                            $('.custom_option_headers').html(data.header);
-                            $('.custom_option_body').html(data.body);       
-                        }
-                    }, error: function () {
-                        alert('Error in form');
-                    },
-                    complete: function () {
+                            },
+                            yaxis: {
+                                tooltip: {
+                                    enabled: true
+                                }
+                            }
+                        };
+                        // page.getCandleStikeChart(options, options_pe, rData, rDataPe);
+                        page.ceChart.updateSeries([{
+                            name: 'Sales',
+                            data: rData
+                        }]);
+                        page.peChart.updateSeries([{
+                            name: 'Sales',
+                            data: rDataPe
+                        }])
+                    } else {
+                        $('.custom_option_headers').html(data.header);
+                        $('.custom_option_body').html(data.body);
                     }
-                });
-           }
-      },
-      getCandleStikeChart: function(options, options_pe) {
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-        
-        var chart_pe = new ApexCharts(document.querySelector("#chart_pe"), options_pe);
-        chart_pe.render();
-      }
+                }, error: function () {
+                    alert('Error in form');
+                },
+                complete: function () {
+                }
+            });
+        }
+    },
+    getCandleStikeChart: function () {
+        var options = {
+            chart: {
+                type: 'candlestick',
+                height: 350
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [],
+            title: {
+                text: 'CE Changes',
+            },
+            noData: {
+                text: 'Loading...'
+            }
+        };
+        var options_pe = {
+            chart: {
+                type: 'candlestick',
+                height: 350
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: [],
+            title: {
+                text: 'PE Changes',
+            },
+            noData: {
+                text: 'Loading...'
+            }
+        }
+        page.ceChart = new ApexCharts(document.querySelector("#chart"), options);
+        page.ceChart.render();
+        page.peChart = new ApexCharts(document.querySelector("#chart_pe"), options_pe);
+        page.peChart.render();
+    }
 };
 //Sorting plugin
-var sort = {cache: '', init: function (selector) {
+var sort = {
+    cache: '', init: function (selector) {
         this.cache = $(selector).html();
         $(selector).each(function () {
             $(this).sortable({

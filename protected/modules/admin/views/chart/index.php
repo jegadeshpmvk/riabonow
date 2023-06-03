@@ -27,7 +27,6 @@
         <div class="form-group _form_col_4" style="margin-top:15px">
            <label class="control-label" for="option_options_minute">Minutes</label>
            <select id="option_options_minute" class="form-control" name="options_minute">
-               <option value="1">1 Minute</option>
                <option value="5">5 Minutes</option>
                <option value="10">10 Minutes</option>
                <option value="15">15 Minutes</option>
