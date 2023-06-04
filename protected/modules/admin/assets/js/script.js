@@ -498,7 +498,6 @@ var page = {
                                 y: [value.pe_oi, close_pe_oi, value.pe_oi, close_pe_oi]
                             })
                         });
-                        console.log(rData);
                         page.ceChart.updateSeries([{
                             data: rData
                         }]);
