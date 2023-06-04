@@ -162,6 +162,12 @@ $(function () {
     });
 
 
+    $('body').on('click', '.option_current_date_clear', function (e) {
+        $('#option_current_date').val('');
+        page.getOptionChain();
+    });
+
+
     page.load();
     page.table();
 
