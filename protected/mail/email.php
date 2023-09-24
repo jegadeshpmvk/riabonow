@@ -6,7 +6,7 @@ $title = $data['title'];
 ?>
 <html>
     <head>
-        <title><?= $data['title'] ?></title>
+        <title><?php echo  $data['title'] ?></title>
     </head>
     <body style="margin: 0; background-color: #526DF2;">
         <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#526DF2" style="margin:0 auto;">
@@ -43,7 +43,7 @@ $title = $data['title'];
                                                                         <table width="629" align="left" cellpadding="0" cellspacing="0" border="0">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td colspan="3" align="center" style="line-height:1px; padding: 15px 0;"><a href="https://www.selvasuba.com/" target="_blank" style="text-decoration: none;"><img src="<?= Url::to('@icons', true) ?>/logo.png" style="display: block;text-decoration: none;border: none;" alt="Logo Image" border="0" align="top" height="35"></a></td>
+                                                                                    <td colspan="3" align="center" style="line-height:1px; padding: 15px 0;"><a href="https://www.selvasuba.com/" target="_blank" style="text-decoration: none;"><img src="<?php echo  Url::to('@icons', true) ?>/logo.png" style="display: block;text-decoration: none;border: none;" alt="Logo Image" border="0" align="top" height="35"></a></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -93,7 +93,7 @@ $title = $data['title'];
                                                                                                 <tr>
                                                                                                     <td width="30"></td>
                                                                                                     <td style="color: #2F2726;font-family: sans-serif;font-size: 13px;font-weight: lighter;text-align: left;line-height: 23px;">
-                                                                                                        Dear <?= $name ?>,<br><?= $this->render('@app/mail/text', $data) ?>
+                                                                                                        Dear <?php echo  $name ?>,<br><?php echo  $this->render('@app/mail/text', $data) ?>
                                                                                                     </td>
                                                                                                     <td width="30"></td>
                                                                                                 </tr>
